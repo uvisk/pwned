@@ -1,0 +1,55 @@
+
+import os
+def limpar():
+    if os.name=="nt":
+        os.system("cls")
+
+def letra():
+    return input("Escreva uma letra:  ")
+    
+
+vogais = ("a","e","i","o","u")
+consoantes = ('b','c','d','f','g','h','j','k','l','m','n','p','q','r','s','t','v','w','x','y','z')
+
+while True:
+    variavel = letra()
+    limpar()
+    if variavel.isdigit() == True:
+        print("Isso nao é uma letra")
+    else:
+        
+        try:
+            if len(variavel) > 1:
+                sair = input("apenas uma letra, sair? [s/n]").lower().startswith("s")
+                limpar()
+                if sair == True:
+                    print("Saindo")
+                else:                   
+                    continue
+            elif variavel  in vogais:
+                limpar()
+                print("Sua letra é uma vogal!")
+                tentativa = input("Tentar novamente? [s/n]:  ").lower().startswith("s")
+                limpar()
+                if tentativa == True:
+                    continue
+                else:
+                    print("Saindo...")
+                    break
+            elif variavel  in consoantes:
+                limpar()
+                print("Sua letra é uma consoante!")
+                tentativa = input("Tentar novamente? [s/n]:  ").lower().startswith("s")
+                limpar()
+                if tentativa == True:
+                    continue
+                else:
+                    break
+        except ValueError:
+            limpar()
+            sair = input("apenas letras, sair? [s/n]").lower().startswith("s")
+            limpar()
+            if sair == True:
+                    print("Saindo")
+            else:
+                continue
