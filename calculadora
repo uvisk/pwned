@@ -1,0 +1,40 @@
+numero1 = int(input("Primeiro Numero: "))
+numero2 = int(input("Segundo Numero: "))
+while True:
+    try:
+        operadores = int(input("""Escolha algum operador:  
+                   1-->+ 
+                   2--> - 
+                   3--> / 
+                   4--> *  \n:  """))
+        
+        if operadores not in (1,2,3,4):
+            print("Escolha alguma das opçoes")
+
+        elif operadores == 1:
+            conta = numero1 + numero2
+            print(conta)
+        elif operadores == 2:
+            conta = numero1 - numero2
+            print(conta)
+        elif operadores == 3:
+            conta = numero1 / numero2
+            print(conta)
+        elif operadores == 4:
+            conta = numero1 * numero2
+            print(conta)
+        
+        sair_porra = input("DESEJA SAIR 67???:   ").lower().startswith("s")
+
+        if sair_porra == True:
+            break
+        else:
+            continue 
+
+    except ValueError:
+        print("Apenas alguma das opçoes acima: 1 2 3 ou 4") 
+        tentar = input("Tentar novamente?: [s/]")
+        if tentar == "s":
+            continue
+        else:
+            break
