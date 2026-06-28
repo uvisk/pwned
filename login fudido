@@ -1,0 +1,45 @@
+import os
+def limpar():
+    if os.name == "nt":
+        os.system("cls")
+
+def login():
+    print("LOGIN")
+
+while True:
+    try:
+        registro_usuario = input("Registrar usuario: ")
+        registro_senha = input(f"Digite a senha para o usuario: {registro_usuario}\n")
+
+        cryptografy_username = registro_usuario.encode('utf-8').hex()
+        cryptografy_password = registro_senha.encode('utf-8').hex()
+        
+        limpar()
+        while True:
+            try:
+                print("LOGIN")
+                new_registro = input("Insert your username: \n")
+                new_password = input("Insert your password: ")
+                limpar()
+                cryptografy2_username = new_registro.encode('utf-8').hex()
+                cryptografy2_password = new_password.encode('utf-8').hex()
+                
+                login_correto = (cryptografy2_username == cryptografy_username and cryptografy2_password == cryptografy_password)
+                if login_correto:
+                    print("Acesso liberado")
+                    break
+                else:
+                    tentativa = input("Login ou senha incorretos tentar novamente? [s/n]")
+                if tentativa == "s":
+                    limpar()
+                    continue 
+                else:
+                    print("Programa encerrado")
+                    break
+                           
+
+            except Exception:
+                print("um erro inesperado ocorreu")
+    except Exception:
+        print("Login ou senhas com valores incertos")
+    break
