@@ -66,11 +66,6 @@ while turno <=3:
             turno +=1
             print("TURNO 3 {dificil} 1 a 30")
 
-            if turno <=3: #impoe um limite nas tentativas
-                if tentativas==5:
-                    print("Limite maximo de [5]Tentativas ")
-                    break
-
         while tentativas<5: 
 
             tentativas +=1
@@ -83,10 +78,8 @@ while turno <=3:
             elif escolha < numero_aleatorio:
                 print(f"seu numero é menor")
                 continue
-            
             if escolha == numero_aleatorio:
                 limpar()
-                
                 print(f"voce acertou em ({tentativas}) tentativas ")
                 #mostra quantos pontos  o jogador fez no turno:
                 if tentativas == 1:
@@ -115,6 +108,10 @@ while turno <=3:
                     carregando()
                     break
             carregando()
+        if tentativas==5:
+                print("Limite maximo de [5]Tentativas ")
+                carregando()
+                continue
         #trata qualquer erro dentro do primeiro while/ menos o keyboardInterrupt
     except Exception as error:
         errodvalor = input(f"ERROR:{error}\n\n" 
@@ -157,7 +154,6 @@ while turno <=3:
         else:
             limpar()
             carregando()
-            
             break
 
 if turno == 4:
