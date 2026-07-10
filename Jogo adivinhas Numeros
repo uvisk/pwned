@@ -1,0 +1,130 @@
+import os
+import random
+import time
+def loading():
+    print("Carregando...")
+    time.sleep(5)
+    limpar()
+def limpar():
+    if os.name=="nt":
+        os.system("cls")
+
+ #gera numeros aleatorios
+turno1 = random.randint(1,10)
+turno2 = random.randint(1,20)
+turno3 = random.randint(1,30)
+turno = 1
+pontos= 0
+rg_tentativas = 0
+
+while turno <=3: 
+    tentativas = rg_tentativas 
+    try:
+        #turnos de dificuldades
+        if turno == 1:
+            limpar()
+            numero_aleatorio =turno1
+            print("TURNO 1 {facil}  1 a 10") 
+            turno +=1
+        elif turno == 2:
+            rg_tentativas = 0
+            limpar()
+            numero_aleatorio = turno2
+            turno +=1
+            print("TURNO 2 {normal} 1 a 20")
+
+        elif turno == 3:
+            rg_tentativas = 0
+            limpar()
+            numero_aleatorio = turno3
+            turno +=1
+            print("TURNO 3 {dificil} 1 a 30")
+
+            if turno <=3: #impoe um limite nas tentativas
+                if tentativas==5:
+                    print("Limite maximo de [5]Tentativas ")
+                    break
+
+        while tentativas<5: 
+
+            tentativas +=1
+            escolha = int(input("tente acertar o numero secreto: "))
+
+            if escolha > numero_aleatorio:
+                print(f"seu numero é maior")
+                continue
+
+            elif escolha < numero_aleatorio:
+                print(f"seu numero é menor")
+                continue
+            
+            if escolha == numero_aleatorio:
+                limpar()
+                print(f"voce acertou em ({tentativas}) tentativas ")
+                #mostra quantos pontos  o jogador fez no turno:
+                if tentativas == 1:
+                    pontos +=20
+                    print("Craque", "+",20,"PTS")
+                    loading()
+                    break
+                elif tentativas == 2:
+                    pontos +=15
+                    print("foda", "+",15,"PTS")
+                    loading()
+                    break
+                elif tentativas == 3:
+                    pontos+=10
+                    print("razoavelmente bom", "+",10,"PTS")
+                    loading()
+                    break
+                elif tentativas == 4:
+                    pontos+=5
+                    print("ruim", "+",5,"PTS")
+                    loading()
+                    break
+                elif tentativas == 5:
+                    pontos+=2
+                    print("BOSTA maxima", "+",2,"PTS")
+                    loading()
+                    break
+        #trata qualquer erro dentro do primeiro while/ menos o keyboardInterrupt
+    except Exception as error:
+        errodvalor = input(f"ERROR:{error}\n\n" 
+                "deseja continuar?: [sim] [nao]").lower().startswith("s")
+        rg_tentativas += tentativas
+        tentativas = 0
+        if errodvalor == True:
+            tentativas +=1
+            turno -=1
+            limpar()
+            continue
+        else:
+            limpar()
+            print("Jogo encerrado...")
+            break
+    except KeyboardInterrupt as error:
+        erro = input(f"ERROR: {error}\n\n"
+                        "deseja realmente encerrar?: [sim] [NÃO]").lower().startswith("n")
+        if erro == True:
+            turno -=1
+            continue
+        else:
+            print("encerrando programa...")
+            break
+    if turno == 4:
+        novamente = input("Jogar novamente?: [s/n]").lower().startswith("s")
+        if novamente == True:
+            limpar()
+            turno1 = random.randint(1,10)
+            turno2 = random.randint(1,20)
+            turno3 = random.randint(1,30)
+            turno = 1
+            pontos = 0
+            tentativas =0
+            continue
+        else:
+            break
+
+if turno == 4:
+    print("Fim da partida")
+    print(f"Seu total de pontos [{pontos}]")
