@@ -1,45 +1,162 @@
 import os
+import random
+import time
 def limpar():
-    if os.name == "nt":
+    if os.name=="nt":
         os.system("cls")
-
-def login():
-    print("LOGIN")
-
-while True:
-    try:
-        registro_usuario = input("Registrar usuario: ")
-        registro_senha = input(f"Digite a senha para o usuario: {registro_usuario}\n")
-
-        cryptografy_username = registro_usuario.encode('utf-8').hex()
-        cryptografy_password = registro_senha.encode('utf-8').hex()
+def ONe():
+    time.sleep(0.9)
+def carregando():
+    loading ="loading ."
+    loading2 = "loading .."
+    loading3 = "loading ..."
+    continuar = 0
+    parar = 0
+    while continuar<=3:
+        if continuar ==1:
+            print(loading)
+            time.sleep(3)
+            limpar()
+        if continuar == 2:
+            print(loading2)
+            ONe()
+            limpar()
+        if continuar == 3:
+            print(loading3)
+            ONe()
+            limpar()
         
-        limpar()
-        while True:
-            try:
-                print("LOGIN")
-                new_registro = input("Insert your username: \n")
-                new_password = input("Insert your password: ")
-                limpar()
-                cryptografy2_username = new_registro.encode('utf-8').hex()
-                cryptografy2_password = new_password.encode('utf-8').hex()
-                
-                login_correto = (cryptografy2_username == cryptografy_username and cryptografy2_password == cryptografy_password)
-                if login_correto:
-                    print("Acesso liberado")
-                    break
-                else:
-                    tentativa = input("Login ou senha incorretos tentar novamente? [s/n]")
-                if tentativa == "s":
-                    limpar()
-                    continue 
-                else:
-                    print("Programa encerrado")
-                    break
-                           
+        continuar +=1
+        if continuar == 4:
+            continuar = 0
+        parar +=1
+        if parar == 8:
+            break
 
-            except Exception:
-                print("um erro inesperado ocorreu")
-    except Exception:
-        print("Login ou senhas com valores incertos")
-    break
+        continue
+
+ #gera numeros aleatorios
+turno1 = random.randint(1,10)
+turno2 = random.randint(1,20)
+turno3 = random.randint(1,30)
+turno = 1
+pontos= 0
+rg_tentativas = 0
+
+while turno <=3: 
+    tentativas = rg_tentativas 
+    try:
+        #turnos de dificuldades
+        if turno == 1:
+            limpar()
+            numero_aleatorio =turno1
+            print("TURNO 1 {facil}  1 a 10") 
+            turno +=1
+        elif turno == 2:
+            rg_tentativas = 0
+            limpar()
+            numero_aleatorio = turno2
+            turno +=1
+            print("TURNO 2 {normal} 1 a 20")
+
+        elif turno == 3:
+            rg_tentativas = 0
+            limpar()
+            numero_aleatorio = turno3
+            turno +=1
+            print("TURNO 3 {dificil} 1 a 30")
+
+        while tentativas<5: 
+
+            tentativas +=1
+            escolha = int(input("tente acertar o numero secreto: "))
+
+            if escolha > numero_aleatorio:
+                print(f"seu numero é maior")
+                continue
+
+            elif escolha < numero_aleatorio:
+                print(f"seu numero é menor")
+                continue
+            if escolha == numero_aleatorio:
+                limpar()
+                print(f"voce acertou em ({tentativas}) tentativas ")
+                #mostra quantos pontos  o jogador fez no turno:
+                if tentativas == 1:
+                    pontos +=20
+                    print("Craque", "+",20,"PTS")
+                    carregando()
+                    break
+                elif tentativas == 2:
+                    pontos +=15
+                    print("foda", "+",15,"PTS")
+                    carregando()
+                    break
+                elif tentativas == 3:
+                    pontos+=10
+                    print("razoavelmente bom", "+",10,"PTS")
+                    carregando()
+                    break
+                elif tentativas == 4:
+                    pontos+=5
+                    print("ruim", "+",5,"PTS")
+                    carregando()
+                    break
+                elif tentativas == 5:
+                    pontos+=2
+                    print("BOSTA maxima", "+",2,"PTS")
+                    carregando()
+                    break
+            carregando()
+        if tentativas==5:
+                print("Limite maximo de [5]Tentativas ")
+                carregando()
+                continue
+        #trata qualquer erro dentro do primeiro while/ menos o keyboardInterrupt
+    except Exception as error:
+        errodvalor = input(f"ERROR:{error}\n\n" 
+                "deseja continuar?: [sim] [nao]").lower().startswith("s")
+        rg_tentativas += tentativas
+        tentativas = 0
+        if errodvalor == True:
+            tentativas +=1
+            turno -=1
+            limpar()
+            continue
+        else:
+            limpar()
+            print("Jogo encerrado...")
+            break
+    except KeyboardInterrupt as error:
+        erro = input(f"ERROR: {error}\n\n"
+                        "deseja realmente encerrar?: [sim] [NÃO]").lower().startswith("n")
+        if erro == True:
+            turno -=1
+            continue
+        else:
+            print("encerrando programa...")
+            break
+    limpar()
+    print("Fim da partida")
+    print(f"Seu total de pontos [{pontos}]")
+    
+    if turno == 4:
+        novamente = input("Jogar novamente?: [s/n]").lower().startswith("s")
+        if novamente == True:
+            limpar()
+            turno1 = random.randint(1,10)
+            turno2 = random.randint(1,20)
+            turno3 = random.randint(1,30)
+            turno = 1
+            pontos = 0
+            tentativas =0
+            continue
+        else:
+            limpar()
+            carregando()
+            
+            break
+
+if turno == 4:
+    print("Fim da partida")
+    print(f"Seu total de pontos [{pontos}]")
