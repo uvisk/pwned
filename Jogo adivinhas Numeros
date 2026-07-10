@@ -1,13 +1,39 @@
 import os
 import random
 import time
-def loading():
-    print("Carregando...")
-    time.sleep(5)
-    limpar()
 def limpar():
     if os.name=="nt":
         os.system("cls")
+def ONe():
+    time.sleep(0.9)
+def carregando():
+    loading ="loading ."
+    loading2 = "loading .."
+    loading3 = "loading ..."
+    continuar = 0
+    parar = 0
+    while continuar<=3:
+        if continuar ==1:
+            print(loading)
+            time.sleep(3)
+            limpar()
+        if continuar == 2:
+            print(loading2)
+            ONe()
+            limpar()
+        if continuar == 3:
+            print(loading3)
+            ONe()
+            limpar()
+        
+        continuar +=1
+        if continuar == 4:
+            continuar = 0
+        parar +=1
+        if parar == 8:
+            break
+
+        continue
 
  #gera numeros aleatorios
 turno1 = random.randint(1,10)
@@ -60,33 +86,35 @@ while turno <=3:
             
             if escolha == numero_aleatorio:
                 limpar()
+                
                 print(f"voce acertou em ({tentativas}) tentativas ")
                 #mostra quantos pontos  o jogador fez no turno:
                 if tentativas == 1:
                     pontos +=20
                     print("Craque", "+",20,"PTS")
-                    loading()
+                    carregando()
                     break
                 elif tentativas == 2:
                     pontos +=15
                     print("foda", "+",15,"PTS")
-                    loading()
+                    carregando()
                     break
                 elif tentativas == 3:
                     pontos+=10
                     print("razoavelmente bom", "+",10,"PTS")
-                    loading()
+                    carregando()
                     break
                 elif tentativas == 4:
                     pontos+=5
                     print("ruim", "+",5,"PTS")
-                    loading()
+                    carregando()
                     break
                 elif tentativas == 5:
                     pontos+=2
                     print("BOSTA maxima", "+",2,"PTS")
-                    loading()
+                    carregando()
                     break
+            carregando()
         #trata qualquer erro dentro do primeiro while/ menos o keyboardInterrupt
     except Exception as error:
         errodvalor = input(f"ERROR:{error}\n\n" 
@@ -111,6 +139,10 @@ while turno <=3:
         else:
             print("encerrando programa...")
             break
+    limpar()
+    print("Fim da partida")
+    print(f"Seu total de pontos [{pontos}]")
+    
     if turno == 4:
         novamente = input("Jogar novamente?: [s/n]").lower().startswith("s")
         if novamente == True:
@@ -123,6 +155,9 @@ while turno <=3:
             tentativas =0
             continue
         else:
+            limpar()
+            carregando()
+            
             break
 
 if turno == 4:
