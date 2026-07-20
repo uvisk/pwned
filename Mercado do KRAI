@@ -1,0 +1,30 @@
+import os
+def l():
+    if os.name == "nt":
+        os.system("cls")
+carrinho = ""
+pratileira = [' banana', ' maça', ' melancia', ' melão', ' tomate', ' abobora', ' chuchu', ' cenoura']
+limite_carrinho = 0
+while True:
+    try:
+        if limite_carrinho >= 4:
+            print("carrinho cheio")
+            break
+        escolha_user = int(input(f"escolha 4 coisas pra colocar no carrinho:\n"
+                            f"{pratileira}:\n"))
+        l()
+        carrinho += pratileira[escolha_user-1]
+        del pratileira[escolha_user-1]
+        limite_carrinho +=1
+        
+    except ValueError:
+        print("Escreva algo...")
+        continue
+    except IndexError:
+        print("Escolha algo que tenha na pratileira")
+        continue
+    except KeyboardInterrupt:
+        print("mercado fechando...")
+        break
+
+print(f"Produtos no carrinho: {carrinho}")
