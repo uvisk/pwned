@@ -1,0 +1,103 @@
+import os
+def L():
+    if os.name=="nt":
+        os.system("cls")
+def opçoes():
+    print("Lista de Compras\n"
+          "1-[Inserir]\n"
+          "2-[Apagar]\n"
+          "3-[Listar]: \n"
+          "4-[Sair]\n"
+          f"Sua lista:{lista} ")        
+
+lista = []
+while True:
+    opçoes()
+    try:
+        imput_usuario = input("Oque deseja fazer?: ").lower()
+        if imput_usuario == "1" or imput_usuario.startswith("i") == True:
+                while True:
+                    inserir_lista = input("Oque deseja inserir?: --> ")
+                    indice_inserir = int(input("qual indice deseja inserir?: "))
+                    lista.insert(indice_inserir -1, inserir_lista)
+                    L()
+                    print(f"Sua Lista: {lista}")
+                    novamente2 = input("Inserir novamente? [s/n]").lower().startswith("s")
+                    if novamente2:
+                        L()
+                        print(f"Sua lista: {lista}")
+                        continue
+                    else:
+                        L()
+                        break
+            
+        elif imput_usuario == "2" or imput_usuario.startswith("a") == True:
+            for i in enumerate(lista,start=1):
+               print(f"{i}\t")
+            while True:
+                apagar = int(input("Digite o indice que deseja apagar: "))
+                if apagar < len(lista):
+                    if apagar == type(str):
+                        L()
+                        print("Apenas O numero do indice")
+                    else:
+                        del lista[apagar -1]
+                    print(f"Sua lista: {lista}")    
+                    novamente2 = input("apagar novamente? [s/n]").lower().startswith("s")
+                    if novamente2:
+                        L()
+                        
+                        continue
+                    else:
+                        L()
+                        break
+                
+        elif imput_usuario == "3" or imput_usuario.startswith("l") == True:
+            if len(lista)== 0:
+                L()
+                print("Sua lista nao contem nada")
+            continue
+        elif imput_usuario == "4" or imput_usuario.startswith("s") == True:
+            realmente = input("Tem certeza que deseja encerrar o programa?:\n"
+                              "Os valores da sua lista serão deletados  [s/n]").lower().startswith("s")
+            if realmente == True:
+                L()
+                print("Programa Encerrado...")
+                break
+        
+        else:
+            L()
+            print("erro: digite o número da opção, ou o nome")
+            continue
+        
+    except Exception as erro:
+        L()
+        print("erro:", erro)
+        i = input("tentar novamente [s/n]").lower().startswith("s")
+        if i == True:
+            continue
+        else:
+            L()
+            print("Programa Encerrado")
+            break
+    except IndexError as erro:
+        L()
+        print("erro:", erro)
+        print("Sua lista Ainda está vazia")
+        i = input("tentar novamente [s/n]").lower().startswith("s")
+        if i == True:
+            continue
+        else:
+            L()
+            print("Programa Encerrado")
+            break
+    except TypeError as erro:
+        L()
+        print("erro:", erro)
+        i = input("tentar novamente [s/n]").lower().startswith("s")
+        if i == True:
+            continue
+        else:
+            L()
+            print("Programa Encerrado")
+            break
