@@ -1,9 +1,10 @@
 import os
+import time
 def L():
     if os.name=="nt":
         os.system("cls")
 def opçoes():
-    print("Lista de Compras\n"
+    print("Editor de lista\n"
           "1-[Inserir]\n"
           "2-[Apagar]\n"
           "3-[Listar]: \n"
@@ -15,8 +16,10 @@ while True:
     opçoes()
     try:
         imput_usuario = input("Oque deseja fazer?: ").lower()
+        L()
         if imput_usuario == "1" or imput_usuario.startswith("i") == True:
                 while True:
+                    print("Sua lista: ",lista)
                     inserir_lista = input("Oque deseja inserir?: --> ")
                     indice_inserir = int(input("qual indice deseja inserir?: "))
                     lista.insert(indice_inserir -1, inserir_lista)
@@ -33,20 +36,30 @@ while True:
             
         elif imput_usuario == "2" or imput_usuario.startswith("a") == True:
             for i in enumerate(lista,start=1):
-               print(f"{i}\t")
+                print(i)
             while True:
+                print("Sua lista: ",lista)
                 apagar = int(input("Digite o indice que deseja apagar: "))
-                if apagar < len(lista):
-                    if apagar == type(str):
-                        L()
-                        print("Apenas O numero do indice")
-                    else:
-                        del lista[apagar -1]
+                
+                if lista == []:
+                    L()
+                    print("sua lista está vazia")
+                    print("tente novamente") 
+                    break
+                elif 1 <= apagar <= len(lista):
+                    del lista[apagar-1]
                     print(f"Sua lista: {lista}")    
-                    novamente2 = input("apagar novamente? [s/n]").lower().startswith("s")
+                    novamente2 = input("Tentar apagar novamente? [s/n]").lower().startswith("s")
                     if novamente2:
+                        continue
+                    else:
                         L()
-                        
+                        break
+                else:   
+                    print("indice inexistente")
+                    print(f"Sua lista: {lista}")    
+                    novamente2 = input("Tentar apagar novamente? [s/n]").lower().startswith("s")
+                    if novamente2:
                         continue
                     else:
                         L()
