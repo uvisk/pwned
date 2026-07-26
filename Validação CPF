@@ -1,0 +1,53 @@
+while True:
+    cpf_recebido = input("Insira um CPF: ") 
+    cpf_formado = cpf_recebido.replace(".","").replace("-","")
+    if cpf_formado.isdigit() == True:                         
+        s = cpf_formado[:9]                     #<class 'str'> #pega até o nono digito do cpf
+        a = 10                                  #usado para a multiplicação regressiva
+        tds_n = 0                               #acomula os resultados da multiplicação
+        if a >=0 :                              #condição para a multiplicação acontecer
+            for i in s:                         #para cada numero até o nono digito multiplique o numero atual de 10 regressivamente até 0
+                multi = int(i) * a
+                tds_n += multi
+                a -=1
+                
+        resultado = tds_n * 10  #3010
+        result = resultado % 11 #7
+                
+        result = result if result<=9 else 0
+
+        sa = s + str(result)
+        tds_n1 = 0
+        a1 = 11                                  
+        if a1 >=0 :                              
+            for i in sa:                         
+                multi1 = int(i) * a1
+                tds_n1 += multi1
+                a1 -=1
+            
+                
+        resultado1 = tds_n1 * 10  #7
+        result1 = resultado1 % 11 #3010
+
+        result1 = result1  if result1<=9 else 0
+
+        concatenação = s + (str(result) + str(result1))
+
+        if concatenação == cpf_formado:
+            print(f"CPF: {cpf_recebido}\n VALIDO.")
+        else:
+            print(f"CPF: {cpf_recebido}\n INVALIDO.")
+        # print(s, result, result1)
+        # print("CONCATENCAO: ",concatenação)
+        # print(type(concatenação))
+
+        # print("CPF_formado: ",cpf_formado)
+        # print(type(cpf_formado))
+        # print("valido" if cpf_formado == concatenação else "invalido")
+    else:
+        print("Apenas digitos, - e .")
+        i = input("Tentar novamente?: [s/n]").lower().startswith("s")
+        if i == True:
+            continue
+        else:
+            break
