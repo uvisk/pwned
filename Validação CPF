@@ -5,6 +5,12 @@ def L():
 while True:
     cpf_recebido = input("Insira um CPF: ") 
     cpf_formado = cpf_recebido.replace(".","").replace("-","")
+    if cpf_recebido == cpf_recebido[0] * len(cpf_recebido):
+        repeat = input("Valores repetidos, tentar novamente? [s/qualquer tecla para sair]").lower().startswith("s")
+        if repeat == True:
+            continue
+        else:
+            break
     L()
     if cpf_formado.isdigit() == True:                         
         s = cpf_formado[:9]                     #<class 'str'> #pega até o nono digito do cpf
