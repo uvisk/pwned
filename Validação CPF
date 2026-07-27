@@ -1,6 +1,11 @@
+import os
+def L():
+    if os.name=="nt":
+        os.system("cls")
 while True:
     cpf_recebido = input("Insira um CPF: ") 
     cpf_formado = cpf_recebido.replace(".","").replace("-","")
+    L()
     if cpf_formado.isdigit() == True:                         
         s = cpf_formado[:9]                     #<class 'str'> #pega até o nono digito do cpf
         a = 10                                  #usado para a multiplicação regressiva
@@ -37,16 +42,10 @@ while True:
             print(f"CPF: {cpf_recebido}\n VALIDO.")
         else:
             print(f"CPF: {cpf_recebido}\n INVALIDO.")
-        # print(s, result, result1)
-        # print("CONCATENCAO: ",concatenação)
-        # print(type(concatenação))
-
-        # print("CPF_formado: ",cpf_formado)
-        # print(type(cpf_formado))
-        # print("valido" if cpf_formado == concatenação else "invalido")
     else:
         print("Apenas digitos, - e .")
         i = input("Tentar novamente?: [s/n]").lower().startswith("s")
+        L()
         if i == True:
             continue
         else:
