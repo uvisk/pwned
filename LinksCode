@@ -1,0 +1,19 @@
+import re
+import pyperclip
+import requests
+area_transferencia = pyperclip.paste()
+regexp = re.compile(r"http\S+")
+links_achados = regexp.findall(area_transferencia)
+avarias = []
+
+for i in links_achados:
+    r = requests.get(i,timeout=5)
+    r1 = r.status_code
+    if r1 != 200:
+        avarias.append(f"{i} Code: [{r1}]")
+    else:
+        print(f"Site: [{i}] Code: [{r1}]")
+   
+   
+   
+#PRIMEIRO COPIE OS LINKS DESEJADOS, E DEPOIS EXECUTE O CODIGO
