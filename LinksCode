@@ -1,19 +1,47 @@
 import re
 import pyperclip
 import requests
-area_transferencia = pyperclip.paste()
-regexp = re.compile(r"http\S+")
-links_achados = regexp.findall(area_transferencia)
+import os
+import random
 avarias = []
+funcionais = []
+quebrados = []
 
-for i in links_achados:
-    r = requests.get(i,timeout=5)
-    r1 = r.status_code
-    if r1 != 200:
-        avarias.append(f"{i} Code: [{r1}]")
-    else:
-        print(f"Site: [{i}] Code: [{r1}]")
-   
-   
-   
-#PRIMEIRO COPIE OS LINKS DESEJADOS, E DEPOIS EXECUTE O CODIGO
+nome_pasta = input("Escolha um Nome para Seu arquivo Com links avariados: ")
+nome_pasta_200 = input("Agora o nome para os Links Funcionais: ")
+area_transferencia = pyperclip.paste()
+regexp = re.compile(r"http\S+",flags=re.I) 
+links_achados = regexp.findall(area_transferencia) #separa os links 
+
+
+try:
+    # faz as requisiçoes aos links
+    
+        for i in links_achados:
+            try:
+                a = random.randint(5,7)
+                r = requests.get(i,timeout=a)
+                r1 = r.status_code
+                if r1 != 200:
+                    print(f"Site: [{i}] Code: [{r1}]")
+                    avarias.append(f"Site: {i} Code: [{r1}]")
+                else:
+                    print((f"Site: [{i}] Code: [{r1}]"))
+                    funcionais.append(f"Site: [{i}] Code: [{r1}]")
+
+                if r1 != 200:
+                    with open(f"{nome_pasta}","w") as arquivo:
+                        arquivo.write("\n".join(avarias))
+                else:
+                    with open(f"{nome_pasta_200}","w") as links_200:
+                        links_200.write("\n".join(funcionais))
+            
+            
+            except Exception as erro:
+                quebrados.append(f"Site: {i} Code: [{r1}]")
+                with open(f"crazy_links","w") as crack:
+                    crack.write("\n".join(quebrados))
+                    continue
+            
+except Exception as error:
+    print(f"Um erro inesperado: [{error}]")
