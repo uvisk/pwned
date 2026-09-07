@@ -1,3 +1,4 @@
+
 import re
 import pyperclip
 import requests
@@ -14,34 +15,27 @@ regexp = re.compile(r"http\S+",flags=re.I)
 links_achados = regexp.findall(area_transferencia) #separa os links 
 
 
-try:
-    # faz as requisiçoes aos links
-    
-        for i in links_achados:
-            try:
-                a = random.randint(5,7)
-                r = requests.get(i,timeout=a)
-                r1 = r.status_code
-                if r1 != 200:
-                    print(f"Site: [{i}] Code: [{r1}]")
-                    avarias.append(f"Site: {i} Code: [{r1}]")
-                else:
-                    print((f"Site: [{i}] Code: [{r1}]"))
-                    funcionais.append(f"Site: [{i}] Code: [{r1}]")
+for i in links_achados:
+    try:
+        a = random.randint(5,7)
+        r = requests.get(i,timeout=a)
+        r1 = r.status_code
+        if r1 != 200:
+            print(f"Site: [{i}] Code: [{r1}]")
+            avarias.append(f"Site: {i} Code: [{r1}]")
+        else:
+            print((f"Site: [{i}] Code: [{r1}]"))
+            funcionais.append(f"Site: [{i}] Code: [{r1}]")
 
-                if r1 != 200:
-                    with open(f"{nome_pasta}","w") as arquivo:
-                        arquivo.write("\n".join(avarias))
-                else:
-                    with open(f"{nome_pasta_200}","w") as links_200:
-                        links_200.write("\n".join(funcionais))
-            
-            
-            except Exception as erro:
-                quebrados.append(f"Site: {i} Code: [{r1}]")
-                with open(f"crazy_links","w") as crack:
-                    crack.write("\n".join(quebrados))
-                    continue
-            
-except Exception as error:
-    print(f"Um erro inesperado: [{error}]")
+
+    except Exception as erro:
+        quebrados.append(f"Site: {i} Code: [{r1}]")
+        with open(f"crazy_links","w") as crack:
+            crack.write("\n".join(quebrados))
+            continue
+
+with open(f"{nome_pasta}","w") as arquivo:
+                arquivo.write("\n".join(avarias))
+
+with open(f"{nome_pasta_200}","w") as links_200:
+                links_200.write("\n".join(funcionais))
