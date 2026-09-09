@@ -1,0 +1,44 @@
+import os
+import time
+def l(): 
+    if os.name == "nt":
+         os.system("cls")
+def esperar():
+    time.sleep(3)
+
+perguntas = [
+    {
+        'pergunta': 'quanto é 2+2',
+        'opçoes': [1,2,3,4,5],
+        'resposta': '4'
+    },
+    {
+        'pergunta': "qual é o nome do virus que rouba todas as senhas?",
+        'opçoes': ['spyware','infoStealer','keylogger','spyware'],
+        'resposta': 'infoStealer'
+    },
+    {
+        'pergunta': "Qual o nome do virus que se auto multiplica/espalha, nos sistemas",
+        'opçoes': ['rownsoware', 'worm','rootkit','IloveYou'],
+        'resposta': "worm"
+    }
+
+]
+
+acertos = 0
+for pergunta in perguntas:
+    print(pergunta['pergunta'])
+    print(pergunta['opçoes'])
+
+    escolha = input('Escolha alguma das opçoes: ')
+
+    if escolha == pergunta['resposta']:
+        print("Acertou porra")
+        acertos += 1
+    else:
+        print("Não acertou caralho")
+
+    esperar()
+    l()
+
+print(f'Voce acertou {acertos} de {len(perguntas)} perguntas')
