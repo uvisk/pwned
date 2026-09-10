@@ -1,3 +1,5 @@
+#COPIE UMA LISTA DE LINKS e APERTE EXECUTAR
+
 import requests
 import pyperclip
 import re
