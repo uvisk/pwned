@@ -1,0 +1,55 @@
+import requests
+import pyperclip
+import re
+import random
+
+links = pyperclip.paste()#retorna uma string  
+regexp = re.compile(r"http\S+",flags=re.I)
+links_achados = regexp.findall(links)#--> retorna uma lista [] com os links achados
+# 'Strict-Transport-Security','X-Content-Type-Options','X-Frame-Options','Content-Security-Policy','Referrer-Policy'
+proteçoes = ['Strict-Transport-Security','X-Content-Type-Options','X-Frame-Options','Content-Security-Policy','Referrer-Policy']
+slg = {
+    "Strict-Transport-Security": "-S",
+    "X-Content-Type-Options": "-XC",
+    "X-Frame-Options": "-XF",
+    "Content-Security-Policy": "-C",
+    "Referrer-Policy": "-R"
+}
+
+high = []
+medium = []
+lower = []
+for i in links_achados:
+    try:
+        ociloscopio = random.randint(0,1)
+        requisiçoes = requests.head(i,timeout=ociloscopio)#--> faz a requisição no link 
+        r = requisiçoes.headers #--> pega os headers [chave e tals, segurança]
+        temporario = []
+    except Exception:
+        continue
+        
+    for f in proteçoes: # para cada chave(de segurança), faça tal coisa...
+        if r.get(f) is None:
+            temporario.append("-")
+        else:
+            temporario.append(f"{slg[f]}")
+
+    if temporario.count("-") in (0,1):
+        high.append(f"{[i]}: {temporario}")
+
+    elif temporario.count("-") in (2,3):
+        medium.append(f"{[i]}: {temporario}")
+
+    elif temporario.count("-") in (4,5):
+        lower.append(f"{[i]}: {temporario}")
+    print(f"{[i]}: {temporario}")       
+
+
+with open(f"{'HIGH.txt'}","w") as arquivo:
+                arquivo.write("\n".join(high))
+
+with open(f"{'MEDIUM.txt'}","w") as links1:
+                links1.write("\n".join(medium))
+
+with open(f"{'LOWER.txt'}","w") as links_200:
+                links_200.write("\n".join(lower))
