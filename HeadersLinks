@@ -1,9 +1,6 @@
-#COPIE UMA LISTA DE LINKS e APERTE EXECUTAR
-
 import requests
 import pyperclip
 import re
-import random
 
 links = pyperclip.paste()#retorna uma string  
 regexp = re.compile(r"http\S+",flags=re.I)
@@ -21,13 +18,14 @@ slg = {
 high = []
 medium = []
 lower = []
+quebrados = []
 for i in links_achados:
     try:
-        ociloscopio = random.randint(0,1)
-        requisiçoes = requests.head(i,timeout=ociloscopio)#--> faz a requisição no link 
+        requisiçoes = requests.head(i,timeout=12)#--> faz a requisição no link 
         r = requisiçoes.headers #--> pega os headers [chave e tals, segurança]
         temporario = []
     except Exception:
+        quebrados.append(f"Site: [{i}]")
         continue
         
     for f in proteçoes: # para cada chave(de segurança), faça tal coisa...
@@ -37,21 +35,24 @@ for i in links_achados:
             temporario.append(f"{slg[f]}")
 
     if temporario.count("-") in (0,1):
-        high.append(f"{[i]}: {temporario}")
+        high.append(f"Site: {[i]}  Security:   {temporario}")
 
     elif temporario.count("-") in (2,3):
-        medium.append(f"{[i]}: {temporario}")
+        medium.append(f"Site: {[i]}  Security:   {temporario}")
 
     elif temporario.count("-") in (4,5):
-        lower.append(f"{[i]}: {temporario}")
-    print(f"{[i]}: {temporario}")       
+        lower.append(f"Site: {[i]}  Security:   {temporario}")
+    print(f"Site: [{i}]  Security:   {temporario}")       
 
 
-with open(f"{'HIGH.txt'}","w") as arquivo:
-                arquivo.write("\n".join(high))
+with open(f"{'HIGH.txt'}","w") as a:
+                a.write("\n".join(high))
 
-with open(f"{'MEDIUM.txt'}","w") as links1:
-                links1.write("\n".join(medium))
+with open(f"{'MEDIUM.txt'}","w") as a:
+                a.write("\n".join(medium))
 
-with open(f"{'LOWER.txt'}","w") as links_200:
-                links_200.write("\n".join(lower))
+with open(f"{'LOWER.txt'}","w") as a:
+                a.write("\n".join(lower))
+
+with open(f"{'Quebrados.txt'}","w") as a:
+                a.write("\n".join(lower))
