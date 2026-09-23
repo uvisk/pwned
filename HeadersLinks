@@ -55,4 +55,4 @@ with open(f"{'LOWER.txt'}","w") as a:
                 a.write("\n".join(lower))
 
 with open(f"{'Quebrados.txt'}","w") as a:
-                a.write("\n".join(lower))
+                a.write("\n".join(quebrados))
