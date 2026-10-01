@@ -1,0 +1,41 @@
+# gerador de cpf
+#passo a passo: 1 --> randomizar os 8 primeiros numeros(0 a 9)
+# 2 --> randomizar o nono digito(0 a 9), depois fazer o calculo dos numeros verificadores
+
+import random
+quantidade = int(input("Digite A quantidade de CPFs a serem gerados: "))
+parar = 0
+while parar < quantidade:
+    randoms_nonos = []
+    for i in range(0,9):
+        a = random.randint(0,9)
+        randoms_nonos.append(a)
+
+    decrescente = 10
+    soma = 0
+    for cada in randoms_nonos:
+        resultado = cada * decrescente
+        decrescente -= 1
+        soma += resultado
+
+    somaMulti = soma * 10
+    soma_divida = somaMulti % 11
+    soma_divida = soma_divida if soma_divida<=9 else 0            # se for menor ou igual a 9, é ele mesmo, se nao é 0
+    primeiro_verificador = randoms_nonos.append(soma_divida)
+
+
+
+    decres = 11
+    junta = 0
+    for i in randoms_nonos:
+        somas = i * decres
+        decres -= 1
+        junta += somas
+
+    a = junta * 10
+    b = a % 11
+    b = b if b <= 9 else 0
+    randoms_nonos.append(b)
+    cpf = ''.join(map(str, randoms_nonos))
+    print(cpf)
+    parar +=1
