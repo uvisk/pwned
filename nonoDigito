@@ -1,0 +1,70 @@
+import pyperclip
+lista_CPFS = pyperclip.paste().split()
+
+locais_de_emissao = {
+    0: ["Rio Grande do Sul"],
+    1: ["Distrito Federal", "Goiás", "Mato Grosso", "Mato Grosso do Sul", "Tocantins"],
+    2: ["Acre", "Amazonas", "Amapá", "Pará", "Rondônia", "Roraima"],
+    3: ["Ceará", "Maranhão", "Piauí"],
+    4: ["Alagoas", "Paraíba", "Pernambuco", "Rio Grande do Norte"],
+    5: ["Bahia", "Sergipe"],
+    6: ["Minas Gerais"],
+    7: ["Espírito Santo", "Rio de Janeiro"],
+    8: ["São Paulo"],
+    9: ["Paraná", "Santa Catarina"]
+}
+
+zero   = 0
+um     = 0
+dois   = 0
+tres   = 0
+quatro = 0
+cinco  = 0
+seis   = 0
+sete   = 0
+oito   = 0
+nove   = 0
+
+def recorrer(def_cpf):
+        digito = def_cpf[8]
+        return int(digito)
+        
+        
+
+
+for cpf in lista_CPFS:
+    nono_digito = recorrer(cpf)
+    if nono_digito == 0:
+              zero+=1
+    elif nono_digito ==1:
+              um +=1
+    elif nono_digito ==2:
+              dois +=1  
+    elif nono_digito ==3:
+              tres +=1
+    elif nono_digito ==4:
+              quatro +=1
+    elif nono_digito ==5:
+              cinco +=1
+    elif nono_digito ==6:
+              seis +=1
+    elif nono_digito ==7:
+              sete +=1
+    elif nono_digito ==8:
+              oito +=1
+    elif nono_digito ==9:
+              nove +=1
+
+
+print(f"""
+0: {zero}
+1: {um}
+2: {dois}
+3: {tres}
+4: {quatro}
+5: {cinco}
+6: {seis}
+7: {sete}
+8: {oito}
+9: {nove}
+""")
